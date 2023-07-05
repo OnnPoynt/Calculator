@@ -46,16 +46,13 @@ Partial Class Form1
         BtnPlusMinus = New Button()
         TxtDisplay = New TextBox()
         BtnHistory = New Button()
-        BtnRootx = New Button()
-        BtnXsquared = New Button()
-        Btn1byx = New Button()
-        Label2 = New Label()
+        BtnSqrt = New Button()
+        BtnX2 = New Button()
+        Btn1x = New Button()
+        lblEquation = New Label()
         Button1 = New Button()
         RtbDisplayHistory = New RichTextBox()
-        LblIcon1 = New Label()
-        Label4 = New Label()
         Label5 = New Label()
-        Label6 = New Label()
         Label7 = New Label()
         SuspendLayout()
         ' 
@@ -65,7 +62,7 @@ Partial Class Form1
         BtnDivide.FlatAppearance.BorderSize = 0
         BtnDivide.FlatStyle = FlatStyle.Flat
         BtnDivide.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnDivide.Location = New Point(264, 272)
+        BtnDivide.Location = New Point(264, 192)
         BtnDivide.Name = "BtnDivide"
         BtnDivide.Size = New Size(78, 43)
         BtnDivide.TabIndex = 0
@@ -76,7 +73,7 @@ Partial Class Form1
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point)
-        Label1.Location = New Point(12, 89)
+        Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
         Label1.Size = New Size(145, 40)
         Label1.TabIndex = 1
@@ -88,7 +85,7 @@ Partial Class Form1
         BtnPercent.FlatAppearance.BorderSize = 0
         BtnPercent.FlatStyle = FlatStyle.Flat
         BtnPercent.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnPercent.Location = New Point(12, 223)
+        BtnPercent.Location = New Point(12, 143)
         BtnPercent.Name = "BtnPercent"
         BtnPercent.Size = New Size(78, 43)
         BtnPercent.TabIndex = 2
@@ -101,7 +98,7 @@ Partial Class Form1
         BtnCE.FlatAppearance.BorderSize = 0
         BtnCE.FlatStyle = FlatStyle.Flat
         BtnCE.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnCE.Location = New Point(96, 223)
+        BtnCE.Location = New Point(96, 143)
         BtnCE.Name = "BtnCE"
         BtnCE.Size = New Size(78, 43)
         BtnCE.TabIndex = 3
@@ -114,7 +111,7 @@ Partial Class Form1
         BtnC.FlatAppearance.BorderSize = 0
         BtnC.FlatStyle = FlatStyle.Flat
         BtnC.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnC.Location = New Point(180, 223)
+        BtnC.Location = New Point(180, 143)
         BtnC.Name = "BtnC"
         BtnC.Size = New Size(78, 43)
         BtnC.TabIndex = 4
@@ -127,7 +124,7 @@ Partial Class Form1
         BtnBack.FlatAppearance.BorderSize = 0
         BtnBack.FlatStyle = FlatStyle.Flat
         BtnBack.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnBack.Location = New Point(264, 223)
+        BtnBack.Location = New Point(264, 143)
         BtnBack.Name = "BtnBack"
         BtnBack.Size = New Size(78, 43)
         BtnBack.TabIndex = 5
@@ -140,7 +137,7 @@ Partial Class Form1
         BtnMultiply.FlatAppearance.BorderSize = 0
         BtnMultiply.FlatStyle = FlatStyle.Flat
         BtnMultiply.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnMultiply.Location = New Point(264, 321)
+        BtnMultiply.Location = New Point(264, 241)
         BtnMultiply.Name = "BtnMultiply"
         BtnMultiply.Size = New Size(78, 43)
         BtnMultiply.TabIndex = 9
@@ -153,7 +150,7 @@ Partial Class Form1
         Btn9.FlatAppearance.BorderSize = 0
         Btn9.FlatStyle = FlatStyle.Flat
         Btn9.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn9.Location = New Point(180, 321)
+        Btn9.Location = New Point(180, 241)
         Btn9.Name = "Btn9"
         Btn9.Size = New Size(78, 43)
         Btn9.TabIndex = 8
@@ -166,7 +163,7 @@ Partial Class Form1
         Btn8.FlatAppearance.BorderSize = 0
         Btn8.FlatStyle = FlatStyle.Flat
         Btn8.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn8.Location = New Point(96, 321)
+        Btn8.Location = New Point(96, 241)
         Btn8.Name = "Btn8"
         Btn8.Size = New Size(78, 43)
         Btn8.TabIndex = 7
@@ -179,7 +176,7 @@ Partial Class Form1
         Btn7.FlatAppearance.BorderSize = 0
         Btn7.FlatStyle = FlatStyle.Flat
         Btn7.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn7.Location = New Point(12, 321)
+        Btn7.Location = New Point(12, 241)
         Btn7.Name = "Btn7"
         Btn7.Size = New Size(78, 43)
         Btn7.TabIndex = 6
@@ -192,7 +189,7 @@ Partial Class Form1
         BtnMinus.FlatAppearance.BorderSize = 0
         BtnMinus.FlatStyle = FlatStyle.Flat
         BtnMinus.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnMinus.Location = New Point(264, 368)
+        BtnMinus.Location = New Point(264, 288)
         BtnMinus.Name = "BtnMinus"
         BtnMinus.Size = New Size(78, 43)
         BtnMinus.TabIndex = 13
@@ -205,7 +202,7 @@ Partial Class Form1
         Btn6.FlatAppearance.BorderSize = 0
         Btn6.FlatStyle = FlatStyle.Flat
         Btn6.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn6.Location = New Point(180, 368)
+        Btn6.Location = New Point(180, 288)
         Btn6.Name = "Btn6"
         Btn6.Size = New Size(78, 43)
         Btn6.TabIndex = 12
@@ -218,7 +215,7 @@ Partial Class Form1
         Btn5.FlatAppearance.BorderSize = 0
         Btn5.FlatStyle = FlatStyle.Flat
         Btn5.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn5.Location = New Point(96, 368)
+        Btn5.Location = New Point(96, 288)
         Btn5.Name = "Btn5"
         Btn5.Size = New Size(78, 43)
         Btn5.TabIndex = 11
@@ -231,7 +228,7 @@ Partial Class Form1
         Btn4.FlatAppearance.BorderSize = 0
         Btn4.FlatStyle = FlatStyle.Flat
         Btn4.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn4.Location = New Point(12, 368)
+        Btn4.Location = New Point(12, 288)
         Btn4.Name = "Btn4"
         Btn4.Size = New Size(78, 43)
         Btn4.TabIndex = 10
@@ -244,7 +241,7 @@ Partial Class Form1
         BtnPlus.FlatAppearance.BorderSize = 0
         BtnPlus.FlatStyle = FlatStyle.Flat
         BtnPlus.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnPlus.Location = New Point(264, 417)
+        BtnPlus.Location = New Point(264, 337)
         BtnPlus.Name = "BtnPlus"
         BtnPlus.Size = New Size(78, 43)
         BtnPlus.TabIndex = 17
@@ -257,7 +254,7 @@ Partial Class Form1
         Btn3.FlatAppearance.BorderSize = 0
         Btn3.FlatStyle = FlatStyle.Flat
         Btn3.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn3.Location = New Point(180, 417)
+        Btn3.Location = New Point(180, 337)
         Btn3.Name = "Btn3"
         Btn3.Size = New Size(78, 43)
         Btn3.TabIndex = 16
@@ -270,7 +267,7 @@ Partial Class Form1
         Btn2.FlatAppearance.BorderSize = 0
         Btn2.FlatStyle = FlatStyle.Flat
         Btn2.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn2.Location = New Point(96, 417)
+        Btn2.Location = New Point(96, 337)
         Btn2.Name = "Btn2"
         Btn2.Size = New Size(78, 43)
         Btn2.TabIndex = 15
@@ -283,7 +280,7 @@ Partial Class Form1
         Btn1.FlatAppearance.BorderSize = 0
         Btn1.FlatStyle = FlatStyle.Flat
         Btn1.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn1.Location = New Point(12, 417)
+        Btn1.Location = New Point(12, 337)
         Btn1.Name = "Btn1"
         Btn1.Size = New Size(78, 43)
         Btn1.TabIndex = 14
@@ -297,7 +294,7 @@ Partial Class Form1
         BtnEquals.FlatStyle = FlatStyle.Flat
         BtnEquals.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
         BtnEquals.ForeColor = Color.White
-        BtnEquals.Location = New Point(264, 466)
+        BtnEquals.Location = New Point(264, 386)
         BtnEquals.Name = "BtnEquals"
         BtnEquals.Size = New Size(78, 43)
         BtnEquals.TabIndex = 21
@@ -310,7 +307,7 @@ Partial Class Form1
         BtnPoint.FlatAppearance.BorderSize = 0
         BtnPoint.FlatStyle = FlatStyle.Flat
         BtnPoint.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnPoint.Location = New Point(180, 466)
+        BtnPoint.Location = New Point(180, 386)
         BtnPoint.Name = "BtnPoint"
         BtnPoint.Size = New Size(78, 43)
         BtnPoint.TabIndex = 20
@@ -323,7 +320,7 @@ Partial Class Form1
         Btn0.FlatAppearance.BorderSize = 0
         Btn0.FlatStyle = FlatStyle.Flat
         Btn0.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn0.Location = New Point(96, 466)
+        Btn0.Location = New Point(96, 386)
         Btn0.Name = "Btn0"
         Btn0.Size = New Size(78, 43)
         Btn0.TabIndex = 19
@@ -336,7 +333,7 @@ Partial Class Form1
         BtnPlusMinus.FlatAppearance.BorderSize = 0
         BtnPlusMinus.FlatStyle = FlatStyle.Flat
         BtnPlusMinus.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnPlusMinus.Location = New Point(12, 466)
+        BtnPlusMinus.Location = New Point(12, 386)
         BtnPlusMinus.Name = "BtnPlusMinus"
         BtnPlusMinus.Size = New Size(78, 43)
         BtnPlusMinus.TabIndex = 18
@@ -346,7 +343,7 @@ Partial Class Form1
         ' TxtDisplay
         ' 
         TxtDisplay.Font = New Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point)
-        TxtDisplay.Location = New Point(12, 158)
+        TxtDisplay.Location = New Point(12, 78)
         TxtDisplay.Multiline = True
         TxtDisplay.Name = "TxtDisplay"
         TxtDisplay.Size = New Size(330, 59)
@@ -356,62 +353,61 @@ Partial Class Form1
         ' 
         ' BtnHistory
         ' 
-        BtnHistory.Location = New Point(311, 89)
+        BtnHistory.Location = New Point(311, 9)
         BtnHistory.Name = "BtnHistory"
         BtnHistory.Size = New Size(31, 28)
         BtnHistory.TabIndex = 24
         BtnHistory.Text = "@"
         BtnHistory.UseVisualStyleBackColor = True
         ' 
-        ' BtnRootx
+        ' BtnSqrt
         ' 
-        BtnRootx.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
-        BtnRootx.FlatAppearance.BorderSize = 0
-        BtnRootx.FlatStyle = FlatStyle.Flat
-        BtnRootx.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnRootx.Location = New Point(180, 272)
-        BtnRootx.Name = "BtnRootx"
-        BtnRootx.Size = New Size(78, 43)
-        BtnRootx.TabIndex = 27
-        BtnRootx.Text = "√x"
-        BtnRootx.UseVisualStyleBackColor = False
+        BtnSqrt.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
+        BtnSqrt.FlatAppearance.BorderSize = 0
+        BtnSqrt.FlatStyle = FlatStyle.Flat
+        BtnSqrt.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
+        BtnSqrt.Location = New Point(180, 192)
+        BtnSqrt.Name = "BtnSqrt"
+        BtnSqrt.Size = New Size(78, 43)
+        BtnSqrt.TabIndex = 27
+        BtnSqrt.Text = "√x"
+        BtnSqrt.UseVisualStyleBackColor = False
         ' 
-        ' BtnXsquared
+        ' BtnX2
         ' 
-        BtnXsquared.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
-        BtnXsquared.FlatAppearance.BorderSize = 0
-        BtnXsquared.FlatStyle = FlatStyle.Flat
-        BtnXsquared.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnXsquared.Location = New Point(96, 272)
-        BtnXsquared.Name = "BtnXsquared"
-        BtnXsquared.Size = New Size(78, 43)
-        BtnXsquared.TabIndex = 26
-        BtnXsquared.Text = "x²"
-        BtnXsquared.UseVisualStyleBackColor = False
+        BtnX2.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
+        BtnX2.FlatAppearance.BorderSize = 0
+        BtnX2.FlatStyle = FlatStyle.Flat
+        BtnX2.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
+        BtnX2.Location = New Point(96, 192)
+        BtnX2.Name = "BtnX2"
+        BtnX2.Size = New Size(78, 43)
+        BtnX2.TabIndex = 26
+        BtnX2.Text = "x²"
+        BtnX2.UseVisualStyleBackColor = False
         ' 
-        ' Btn1byx
+        ' Btn1x
         ' 
-        Btn1byx.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
-        Btn1byx.FlatAppearance.BorderSize = 0
-        Btn1byx.FlatStyle = FlatStyle.Flat
-        Btn1byx.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        Btn1byx.Location = New Point(12, 272)
-        Btn1byx.Name = "Btn1byx"
-        Btn1byx.Size = New Size(78, 43)
-        Btn1byx.TabIndex = 25
-        Btn1byx.Text = "1/x"
-        Btn1byx.UseVisualStyleBackColor = False
+        Btn1x.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
+        Btn1x.FlatAppearance.BorderSize = 0
+        Btn1x.FlatStyle = FlatStyle.Flat
+        Btn1x.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
+        Btn1x.Location = New Point(12, 192)
+        Btn1x.Name = "Btn1x"
+        Btn1x.Size = New Size(78, 43)
+        Btn1x.TabIndex = 25
+        Btn1x.Text = "1/x"
+        Btn1x.UseVisualStyleBackColor = False
         ' 
-        ' Label2
+        ' lblEquation
         ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        Label2.Location = New Point(323, 134)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(19, 21)
-        Label2.TabIndex = 28
-        Label2.Text = "0"
-        Label2.TextAlign = ContentAlignment.MiddleRight
+        lblEquation.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        lblEquation.Location = New Point(12, 54)
+        lblEquation.Name = "lblEquation"
+        lblEquation.RightToLeft = RightToLeft.No
+        lblEquation.Size = New Size(330, 23)
+        lblEquation.TabIndex = 28
+        lblEquation.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' Button1
         ' 
@@ -421,7 +417,7 @@ Partial Class Form1
         Button1.FlatAppearance.MouseOverBackColor = Color.White
         Button1.FlatStyle = FlatStyle.Flat
         Button1.Font = New Font("Segoe UI Semilight", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        Button1.Location = New Point(553, 461)
+        Button1.Location = New Point(553, 392)
         Button1.Name = "Button1"
         Button1.Size = New Size(36, 37)
         Button1.TabIndex = 29
@@ -431,55 +427,27 @@ Partial Class Form1
         ' RtbDisplayHistory
         ' 
         RtbDisplayHistory.BorderStyle = BorderStyle.None
-        RtbDisplayHistory.Location = New Point(385, 134)
+        RtbDisplayHistory.Location = New Point(385, 78)
         RtbDisplayHistory.Name = "RtbDisplayHistory"
         RtbDisplayHistory.Size = New Size(204, 321)
         RtbDisplayHistory.TabIndex = 30
         RtbDisplayHistory.Text = ""
         ' 
-        ' LblIcon1
-        ' 
-        LblIcon1.AutoSize = True
-        LblIcon1.Location = New Point(17, 12)
-        LblIcon1.Name = "LblIcon1"
-        LblIcon1.Size = New Size(41, 15)
-        LblIcon1.TabIndex = 31
-        LblIcon1.Text = "Label3"
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Location = New Point(158, 16)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(41, 15)
-        Label4.TabIndex = 32
-        Label4.Text = "Label4"
-        ' 
         ' Label5
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point)
-        Label5.Location = New Point(385, 76)
+        Label5.Location = New Point(385, 33)
         Label5.Name = "Label5"
         Label5.Size = New Size(64, 21)
         Label5.TabIndex = 33
         Label5.Text = "History"
         ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point)
-        Label6.Location = New Point(455, 76)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(73, 21)
-        Label6.TabIndex = 34
-        Label6.Text = "Memory"
-        ' 
         ' Label7
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point)
-        Label7.Location = New Point(385, 110)
+        Label7.Location = New Point(385, 54)
         Label7.Name = "Label7"
         Label7.Size = New Size(172, 21)
         Label7.TabIndex = 35
@@ -489,18 +457,15 @@ Partial Class Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(594, 514)
+        ClientSize = New Size(594, 436)
         Controls.Add(Label7)
-        Controls.Add(Label6)
         Controls.Add(Label5)
-        Controls.Add(Label4)
-        Controls.Add(LblIcon1)
         Controls.Add(RtbDisplayHistory)
         Controls.Add(Button1)
-        Controls.Add(Label2)
-        Controls.Add(BtnRootx)
-        Controls.Add(BtnXsquared)
-        Controls.Add(Btn1byx)
+        Controls.Add(lblEquation)
+        Controls.Add(BtnSqrt)
+        Controls.Add(BtnX2)
+        Controls.Add(Btn1x)
         Controls.Add(BtnHistory)
         Controls.Add(TxtDisplay)
         Controls.Add(BtnEquals)
@@ -555,15 +520,12 @@ Partial Class Form1
     Friend WithEvents BtnPlusMinus As Button
     Friend WithEvents TxtDisplay As TextBox
     Friend WithEvents BtnHistory As Button
-    Friend WithEvents BtnRootx As Button
-    Friend WithEvents BtnXsquared As Button
-    Friend WithEvents Btn1byx As Button
-    Friend WithEvents Label2 As Label
+    Friend WithEvents BtnSqrt As Button
+    Friend WithEvents BtnX2 As Button
+    Friend WithEvents Btn1x As Button
+    Friend WithEvents lblEquation As Label
     Friend WithEvents Button1 As Button
     Friend WithEvents RtbDisplayHistory As RichTextBox
-    Friend WithEvents LblIcon1 As Label
-    Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
 End Class
