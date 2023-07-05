@@ -94,4 +94,12 @@
             TxtDisplay.Text = "0"
         End If
     End Sub
+
+    Private Sub BtnPlusMinus_Click(sender As Object, e As EventArgs) Handles BtnPlusMinus.Click
+        If (TxtDisplay.Text.Contains("-")) Then
+            TxtDisplay.Text = TxtDisplay.Text.Remove(0, 1)
+        Else
+            TxtDisplay.Text = $"-{TxtDisplay.Text}"
+        End If
+    End Sub
 End Class
