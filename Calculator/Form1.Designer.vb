@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        BtnDivide = New Button()
+        BtnEquals = New Button()
         Label1 = New Label()
         BtnPercent = New Button()
         BtnCE = New Button()
@@ -40,7 +40,7 @@ Partial Class Form1
         Btn3 = New Button()
         Btn2 = New Button()
         Btn1 = New Button()
-        BtnEquals = New Button()
+        BtnDivide = New Button()
         BtnPoint = New Button()
         Btn0 = New Button()
         BtnPlusMinus = New Button()
@@ -56,18 +56,19 @@ Partial Class Form1
         Label7 = New Label()
         SuspendLayout()
         ' 
-        ' BtnDivide
+        ' BtnEquals
         ' 
-        BtnDivide.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
-        BtnDivide.FlatAppearance.BorderSize = 0
-        BtnDivide.FlatStyle = FlatStyle.Flat
-        BtnDivide.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnDivide.Location = New Point(264, 192)
-        BtnDivide.Name = "BtnDivide"
-        BtnDivide.Size = New Size(78, 43)
-        BtnDivide.TabIndex = 0
-        BtnDivide.Text = "÷"
-        BtnDivide.UseVisualStyleBackColor = False
+        BtnEquals.BackColor = SystemColors.Highlight
+        BtnEquals.FlatAppearance.BorderSize = 0
+        BtnEquals.FlatStyle = FlatStyle.Flat
+        BtnEquals.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
+        BtnEquals.ForeColor = Color.White
+        BtnEquals.Location = New Point(264, 386)
+        BtnEquals.Name = "BtnEquals"
+        BtnEquals.Size = New Size(78, 43)
+        BtnEquals.TabIndex = 0
+        BtnEquals.Text = "="
+        BtnEquals.UseVisualStyleBackColor = False
         ' 
         ' Label1
         ' 
@@ -287,19 +288,19 @@ Partial Class Form1
         Btn1.Text = "1"
         Btn1.UseVisualStyleBackColor = False
         ' 
-        ' BtnEquals
+        ' BtnDivide
         ' 
-        BtnEquals.BackColor = SystemColors.MenuHighlight
-        BtnEquals.FlatAppearance.BorderSize = 0
-        BtnEquals.FlatStyle = FlatStyle.Flat
-        BtnEquals.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnEquals.ForeColor = Color.White
-        BtnEquals.Location = New Point(264, 386)
-        BtnEquals.Name = "BtnEquals"
-        BtnEquals.Size = New Size(78, 43)
-        BtnEquals.TabIndex = 21
-        BtnEquals.Text = "="
-        BtnEquals.UseVisualStyleBackColor = False
+        BtnDivide.BackColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
+        BtnDivide.FlatAppearance.BorderSize = 0
+        BtnDivide.FlatStyle = FlatStyle.Flat
+        BtnDivide.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point)
+        BtnDivide.ForeColor = Color.Black
+        BtnDivide.Location = New Point(264, 192)
+        BtnDivide.Name = "BtnDivide"
+        BtnDivide.Size = New Size(78, 43)
+        BtnDivide.TabIndex = 21
+        BtnDivide.Text = "÷"
+        BtnDivide.UseVisualStyleBackColor = False
         ' 
         ' BtnPoint
         ' 
@@ -468,7 +469,7 @@ Partial Class Form1
         Controls.Add(Btn1x)
         Controls.Add(BtnHistory)
         Controls.Add(TxtDisplay)
-        Controls.Add(BtnEquals)
+        Controls.Add(BtnDivide)
         Controls.Add(BtnPoint)
         Controls.Add(Btn0)
         Controls.Add(BtnPlusMinus)
@@ -489,14 +490,14 @@ Partial Class Form1
         Controls.Add(BtnCE)
         Controls.Add(BtnPercent)
         Controls.Add(Label1)
-        Controls.Add(BtnDivide)
+        Controls.Add(BtnEquals)
         Name = "Form1"
         Text = "Form1"
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
-    Friend WithEvents BtnDivide As Button
+    Friend WithEvents BtnEquals As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents BtnPercent As Button
     Friend WithEvents BtnCE As Button
@@ -514,7 +515,7 @@ Partial Class Form1
     Friend WithEvents Btn3 As Button
     Friend WithEvents Btn2 As Button
     Friend WithEvents Btn1 As Button
-    Friend WithEvents BtnEquals As Button
+    Friend WithEvents BtnDivide As Button
     Friend WithEvents BtnPoint As Button
     Friend WithEvents Btn0 As Button
     Friend WithEvents BtnPlusMinus As Button

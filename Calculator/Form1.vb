@@ -4,6 +4,50 @@
     Dim found_expression As Boolean = False
     Dim firstnum, secondnum, q As String
 
+    Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.NumPad0
+                Btn0.PerformClick()
+            Case Keys.NumPad1
+                Btn1.PerformClick()
+            Case Keys.NumPad2
+                Btn2.PerformClick()
+            Case Keys.NumPad3
+                Btn3.PerformClick()
+            Case Keys.NumPad4
+                Btn4.PerformClick()
+            Case Keys.NumPad5
+                Btn5.PerformClick()
+            Case Keys.NumPad6
+                Btn6.PerformClick()
+            Case Keys.NumPad7
+                Btn7.PerformClick()
+            Case Keys.NumPad8
+                Btn8.PerformClick()
+            Case Keys.NumPad9
+                Btn9.PerformClick()
+            Case Keys.Decimal
+                BtnPoint.PerformClick()
+        End Select
+
+        Select Case e.KeyCode
+            Case Keys.Add
+                BtnPlus.PerformClick()
+            Case Keys.Subtract
+                BtnMinus.PerformClick()
+            Case Keys.Multiply
+                BtnMultiply.PerformClick()
+            Case Keys.Divide
+                BtnEquals.PerformClick()
+            Case Keys.Enter
+                BtnDivide.PerformClick()
+        End Select
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.KeyPreview = True
+    End Sub
+
     Private Sub BtnCE_Click(sender As Object, e As EventArgs) Handles BtnCE.Click
         TxtDisplay.Text = "0"
         lblEquation.Text = ""
@@ -30,13 +74,13 @@
         End If
     End Sub
 
-    Private Sub operation_Click(sender As Object, e As EventArgs) Handles BtnDivide.Click, BtnMultiply.Click, BtnMinus.Click, BtnPlus.Click
+    Private Sub operation_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click, BtnMultiply.Click, BtnMinus.Click, BtnPlus.Click
         Dim b As Button = sender
         If (assign_input <> 0) Then
-            BtnEquals.PerformClick()
+            BtnDivide.PerformClick()
             found_expression = True
             operation = b.Text
-            lblEquation.Text = assign_input & "  " & operation
+            lblEquation.Text = lblEquation.Text & "  " & assign_input & " " & operation
         Else
             operation = b.Text
             assign_input = Double.Parse(TxtDisplay.Text)
@@ -45,8 +89,8 @@
         End If
     End Sub
 
-    Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
-        lblEquation.Text = assign_input & operation & TxtDisplay.Text & " ="
+    Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnDivide.Click
+        'lblEquation.Text = assign_input & operation & TxtDisplay.Text & " ="
         Select Case operation
             Case "+"
                 TxtDisplay.Text = (assign_input + Double.Parse(TxtDisplay.Text)).ToString()
@@ -103,36 +147,5 @@
             TxtDisplay.Text = $"-{TxtDisplay.Text}"
         End If
     End Sub
-
-    Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        If e.KeyCode >= Keys.NumPad0 AndAlso e.KeyCode <= Keys.NumPad9 Then
-            Dim keyDigit As Integer = e.KeyCode - Keys.NumPad0
-            Dim digitButton As Button = GetButtonByDigit(keyDigit)
-            If digitButton IsNot Nothing Then
-                digitButton.PerformClick()
-            End If
-        ElseIf e.KeyCode = Keys.Decimal Then
-            BtnPoint.PerformClick()
-        ElseIf e.KeyCode = Keys.Add Then
-            BtnPlus.PerformClick()
-        ElseIf e.KeyCode = Keys.Subtract Then
-            BtnMinus.PerformClick()
-        ElseIf e.KeyCode = Keys.Multiply Then
-            BtnMultiply.PerformClick()
-        ElseIf e.KeyCode = Keys.Divide Then
-            BtnDivide.PerformClick()
-        ElseIf e.KeyCode = Keys.Enter Then
-            BtnEquals.PerformClick()
-        End If
-    End Sub
-
-    Private Function GetButtonByDigit(digit As Integer) As Button
-        Dim buttonName As String = "Btn" & digit
-        Return Controls.Find(buttonName, True).FirstOrDefault()
-    End Function
-
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Enable keyboard events for the form
-        Me.KeyPreview = True
-    End Sub
 End Class
+
