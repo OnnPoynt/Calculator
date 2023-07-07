@@ -1,4 +1,7 @@
-﻿Public Class Form1
+﻿'this Is the code for a calculator program using VB.net. the divide operation Is Not working properly.
+'please fix it For Me.
+
+Public Class Form1
     Dim assign_input As Double = 0
     Dim operation As String
     Dim found_expression As Boolean = False
@@ -38,9 +41,15 @@
             Case Keys.Multiply
                 BtnMultiply.PerformClick()
             Case Keys.Divide
-                BtnEquals.PerformClick()
-            Case Keys.Enter
                 BtnDivide.PerformClick()
+            Case Keys.Enter
+                BtnEquals.PerformClick()
+            Case Keys.Back
+                BtnBack.PerformClick()
+            Case Keys.Delete
+                BtnC.PerformClick()
+            Case Keys.Escape
+                BtnCE.PerformClick()
         End Select
     End Sub
 
@@ -74,35 +83,42 @@
         End If
     End Sub
 
-    Private Sub operation_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click, BtnMultiply.Click, BtnMinus.Click, BtnPlus.Click
+    Private Sub operation_Click(sender As Object, e As EventArgs) Handles BtnDivide.Click, BtnMultiply.Click, BtnMinus.Click, BtnPlus.Click
         Dim b As Button = sender
-        If (assign_input <> 0) Then
-            BtnDivide.PerformClick()
-            found_expression = True
-            operation = b.Text
-            lblEquation.Text = lblEquation.Text & "  " & assign_input & " " & operation
-        Else
-            operation = b.Text
-            assign_input = Double.Parse(TxtDisplay.Text)
-            found_expression = True
-            lblEquation.Text = assign_input & "  " & operation
+
+        If operation <> "" Then
+            ' An operator was already selected, override it
+            lblEquation.Text = lblEquation.Text.Remove(lblEquation.Text.Length - 2) ' Remove the last operator and space
         End If
+
+        operation = b.Text
+        assign_input = Double.Parse(TxtDisplay.Text)
+        lblEquation.Text = assign_input & "  " & operation
+        found_expression = True
     End Sub
 
-    Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnDivide.Click
-        'lblEquation.Text = assign_input & operation & TxtDisplay.Text & " ="
+
+    Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
+        Dim rhs As String = TxtDisplay.Text
+        Dim result As Double = 0
+
         Select Case operation
             Case "+"
-                TxtDisplay.Text = (assign_input + Double.Parse(TxtDisplay.Text)).ToString()
+                result = assign_input + Double.Parse(rhs)
             Case "-"
-                TxtDisplay.Text = (assign_input - Double.Parse(TxtDisplay.Text)).ToString()
+                result = assign_input - Double.Parse(rhs)
             Case "×"
-                TxtDisplay.Text = (assign_input * Double.Parse(TxtDisplay.Text)).ToString()
-            Case "/"
-                TxtDisplay.Text = (assign_input / Double.Parse(TxtDisplay.Text)).ToString()
+                result = assign_input * Double.Parse(rhs)
+            Case "÷"
+                result = assign_input / Double.Parse(rhs)
         End Select
-        assign_input = Double.Parse(TxtDisplay.Text)
+
+        lblEquation.Text = assign_input & " " & operation & " " & rhs & " ="
+        TxtDisplay.Text = result.ToString()
+
+        assign_input = result
         operation = ""
+        found_expression = True
     End Sub
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
