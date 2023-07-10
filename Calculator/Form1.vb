@@ -1,7 +1,4 @@
-﻿'this Is the code for a calculator program using VB.net. the divide operation Is Not working properly.
-'please fix it For Me.
-
-Public Class Form1
+﻿Public Class Form1
     Dim assign_input As Double = 0
     Dim operation As String
     Dim found_expression As Boolean = False
