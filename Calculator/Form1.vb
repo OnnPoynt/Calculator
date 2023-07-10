@@ -165,7 +165,6 @@
     End Sub
 
     Private Sub BtnBack_Click(sender As Object, e As EventArgs) Handles BtnBack.Click
-        'Backspace
         If TxtDisplay.Text.Length > 0 Then
             TxtDisplay.Text = TxtDisplay.Text.Remove(TxtDisplay.Text.Length - 1, 1)
         End If
@@ -181,4 +180,5 @@
             TxtDisplay.Text = $"-{TxtDisplay.Text}"
         End If
     End Sub
+
 End Class
