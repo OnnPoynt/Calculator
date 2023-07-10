@@ -57,6 +57,7 @@
     Private Sub BtnCE_Click(sender As Object, e As EventArgs) Handles BtnCE.Click
         TxtDisplay.Text = "0"
         lblEquation.Text = ""
+        operation = ""
     End Sub
 
     Private Sub BtnC_Click(sender As Object, e As EventArgs) Handles BtnC.Click
@@ -66,6 +67,10 @@
     Private Sub Numbers_Click(sender As Object, e As EventArgs) Handles Btn9.Click, Btn8.Click, Btn7.Click, Btn6.Click, Btn5.Click, Btn4.Click, Btn3.Click, Btn2.Click, Btn1.Click, Btn0.Click, BtnPoint.Click
         Dim b As Button = sender
         Dim keyValue As String = b.Text
+
+        If TxtDisplay.Text.Length >= 16 Then
+            Return
+        End If
 
         If ((TxtDisplay.Text = "0") Or (found_expression)) Then
             TxtDisplay.Clear()
@@ -84,8 +89,7 @@
         Dim b As Button = sender
 
         If operation <> "" Then
-            ' An operator was already selected, override it
-            lblEquation.Text = lblEquation.Text.Remove(lblEquation.Text.Length - 2) ' Remove the last operator and space
+            lblEquation.Text = lblEquation.Text.Remove(lblEquation.Text.Length - 2)
         End If
 
         operation = b.Text
@@ -98,6 +102,11 @@
     Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
         Dim rhs As String = TxtDisplay.Text
         Dim result As Double = 0
+
+        If operation = "÷" AndAlso rhs = "0" Then
+            TxtDisplay.Text = "Cannot divide by 0"
+            Return
+        End If
 
         Select Case operation
             Case "+"
@@ -119,9 +128,21 @@
     End Sub
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
-        Dim a As Double
-        a = Convert.ToDouble(TxtDisplay.Text) / Convert.ToDouble(100)
-        TxtDisplay.Text = System.Convert.ToString(a)
+        If operation = "" Then
+            TxtDisplay.Text = "0"
+        Else
+            Dim Input As Double = Double.Parse(TxtDisplay.Text)
+
+            Dim result As Double = assign_input * (Input / 100)
+
+            lblEquation.Text = assign_input & " " & operation & " " & result.ToString() & " ="
+            TxtDisplay.Text = result.ToString()
+
+            assign_input = result
+            operation = ""
+            found_expression = True
+        End If
+
     End Sub
 
     Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
@@ -161,4 +182,3 @@
         End If
     End Sub
 End Class
-

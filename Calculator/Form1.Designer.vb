@@ -343,11 +343,11 @@ Partial Class Form1
         ' 
         ' TxtDisplay
         ' 
-        TxtDisplay.Font = New Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point)
-        TxtDisplay.Location = New Point(12, 78)
+        TxtDisplay.Font = New Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point)
+        TxtDisplay.Location = New Point(12, 80)
         TxtDisplay.Multiline = True
         TxtDisplay.Name = "TxtDisplay"
-        TxtDisplay.Size = New Size(330, 59)
+        TxtDisplay.Size = New Size(330, 57)
         TxtDisplay.TabIndex = 22
         TxtDisplay.Text = "0"
         TxtDisplay.TextAlign = HorizontalAlignment.Right
