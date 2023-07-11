@@ -136,7 +136,6 @@
         TxtDisplay.Text = result.ToString()
 
         assign_input = result
-        operation = ""
         found_expression = True
     End Sub
 
@@ -174,6 +173,7 @@ End Sub
     Private Sub BtnX2_Click(sender As Object, e As EventArgs) Handles BtnX2.Click
         Dim a As Double
         a = Convert.ToDouble(TxtDisplay.Text) * Convert.ToDouble(TxtDisplay.Text)
+        lblEquation.Text = "(" & TxtDisplay.Text & ")^2"
         TxtDisplay.Text = System.Convert.ToString(a)
     End Sub
 
