@@ -54,10 +54,18 @@
         Me.KeyPreview = True
     End Sub
 
+    Private Sub TxtDisplay_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtDisplay.KeyPress
+        If Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> "." AndAlso e.KeyChar <> ControlChars.Back Then
+            e.Handled = True
+        End If
+    End Sub
+
     Private Sub BtnCE_Click(sender As Object, e As EventArgs) Handles BtnCE.Click
         TxtDisplay.Text = "0"
         lblEquation.Text = ""
         operation = ""
+        assign_input = 0
+        found_expression = False
     End Sub
 
     Private Sub BtnC_Click(sender As Object, e As EventArgs) Handles BtnC.Click
