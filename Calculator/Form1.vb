@@ -116,6 +116,11 @@
             Return
         End If
 
+        If operation = "" Then
+            lblEquation.Text = rhs & " ="
+            Return
+        End If
+
         Select Case operation
             Case "+"
                 result = assign_input + Double.Parse(rhs)
@@ -136,22 +141,28 @@
     End Sub
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
-        If operation = "" Then
-            TxtDisplay.Text = "0"
-        Else
-            Dim Input As Double = Double.Parse(TxtDisplay.Text)
+    If operation = "" Then
+        TxtDisplay.Text = "0"
+    Else
+        Dim currentNumber As Double = Double.Parse(TxtDisplay.Text)
+        Dim result As Double
 
-            Dim result As Double = assign_input * (Input / 100)
+        Select Case operation
+            Case "+", "-"
+                Dim percentOfValue As Double = assign_input * (currentNumber / 100)
+                result = assign_input + percentOfValue
+            Case "×", "÷"
+                result = assign_input * (currentNumber / 100)
+        End Select
 
-            lblEquation.Text = assign_input & " " & operation & " " & result.ToString() & " ="
-            TxtDisplay.Text = result.ToString()
+        lblEquation.Text = assign_input & " " & operation & " " & currentNumber.ToString() & " % ="
+        TxtDisplay.Text = result.ToString()
 
-            assign_input = result
-            operation = ""
-            found_expression = True
-        End If
-
-    End Sub
+        assign_input = result
+        operation = ""
+        found_expression = True
+    End If
+End Sub
 
     Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
         Dim a As Double
@@ -169,6 +180,7 @@
     Private Sub Btn1x_Click(sender As Object, e As EventArgs) Handles Btn1x.Click
         Dim a As Double
         a = Convert.ToDouble(1.0 / Convert.ToDouble(TxtDisplay.Text))
+        lblEquation.Text = "1 / (" & TxtDisplay.Text & ")"
         TxtDisplay.Text = System.Convert.ToString(a)
     End Sub
 
