@@ -6,27 +6,55 @@
 
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         Select Case e.KeyCode
-            Case Keys.NumPad0
+            Case Keys.NumPad0, Keys.D0
                 Btn0.PerformClick()
-            Case Keys.NumPad1
+            Case Keys.NumPad1, Keys.D1
                 Btn1.PerformClick()
-            Case Keys.NumPad2
+            Case Keys.NumPad2, Keys.D2
                 Btn2.PerformClick()
-            Case Keys.NumPad3
+            Case Keys.NumPad3, Keys.D3
                 Btn3.PerformClick()
-            Case Keys.NumPad4
+            Case Keys.NumPad4, Keys.D4
                 Btn4.PerformClick()
-            Case Keys.NumPad5
+            Case Keys.NumPad5, Keys.D5
                 Btn5.PerformClick()
-            Case Keys.NumPad6
+            Case Keys.NumPad6, Keys.D6
                 Btn6.PerformClick()
-            Case Keys.NumPad7
+            Case Keys.NumPad7, Keys.D7
                 Btn7.PerformClick()
-            Case Keys.NumPad8
+            Case Keys.NumPad8, Keys.D8
                 Btn8.PerformClick()
-            Case Keys.NumPad9
+            Case Keys.NumPad9, Keys.D9
                 Btn9.PerformClick()
-            Case Keys.Decimal
+            Case Keys.D1, Keys.OemMinus
+                BtnMinus.PerformClick()
+            Case Keys.D2, Keys.Oemplus
+                BtnPlus.PerformClick()
+            Case Keys.D3
+                BtnMultiply.PerformClick()
+            Case Keys.D4, Keys.OemQuestion
+                BtnDivide.PerformClick()
+            Case Keys.D5
+                If e.Modifiers = Keys.Shift Then
+                    BtnPercent.PerformClick()
+                End If
+            Case Keys.D6
+                If e.Modifiers = Keys.Shift Then
+                    BtnSqrt.PerformClick()
+                Else
+                    BtnMultiply.PerformClick()
+                End If
+            Case Keys.D7
+                Btn7.PerformClick()
+            Case Keys.D8
+                If e.Modifiers = Keys.Shift Then
+                    BtnX2.PerformClick()
+                Else
+                    Btn8.PerformClick()
+                End If
+            Case Keys.D9
+                Btn9.PerformClick()
+            Case Keys.Decimal, Keys.OemPeriod
                 BtnPoint.PerformClick()
         End Select
 
@@ -147,11 +175,14 @@
             Dim result As Double
 
             Select Case operation
-                Case "+", "-"
-                    Dim percentOfValue As Double = assign_input * (currentNumber / 100)
-                    result = assign_input + percentOfValue
-                Case "×", "÷"
+                Case "+"
+                    result = assign_input + (assign_input * (currentNumber / 100))
+                Case "-"
+                    result = assign_input - (assign_input * (currentNumber / 100))
+                Case "×"
                     result = assign_input * (currentNumber / 100)
+                Case "÷"
+                    result = assign_input / (currentNumber / 100)
             End Select
 
             lblEquation.Text = assign_input & " " & operation & " " & currentNumber.ToString() & " % ="
