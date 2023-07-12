@@ -140,28 +140,28 @@
     End Sub
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
-    If operation = "" Then
-        TxtDisplay.Text = "0"
-    Else
-        Dim currentNumber As Double = Double.Parse(TxtDisplay.Text)
-        Dim result As Double
+        If operation = "" Then
+            TxtDisplay.Text = "0"
+        Else
+            Dim currentNumber As Double = Double.Parse(TxtDisplay.Text)
+            Dim result As Double
 
-        Select Case operation
-            Case "+", "-"
-                Dim percentOfValue As Double = assign_input * (currentNumber / 100)
-                result = assign_input + percentOfValue
-            Case "×", "÷"
-                result = assign_input * (currentNumber / 100)
-        End Select
+            Select Case operation
+                Case "+", "-"
+                    Dim percentOfValue As Double = assign_input * (currentNumber / 100)
+                    result = assign_input + percentOfValue
+                Case "×", "÷"
+                    result = assign_input * (currentNumber / 100)
+            End Select
 
-        lblEquation.Text = assign_input & " " & operation & " " & currentNumber.ToString() & " % ="
-        TxtDisplay.Text = result.ToString()
+            lblEquation.Text = assign_input & " " & operation & " " & currentNumber.ToString() & " % ="
+            TxtDisplay.Text = result.ToString()
 
-        assign_input = result
-        operation = ""
-        found_expression = True
-    End If
-End Sub
+            assign_input = result
+            operation = ""
+            found_expression = True
+        End If
+    End Sub
 
     Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
         Dim a As Double
@@ -202,3 +202,5 @@ End Sub
     End Sub
 
 End Class
+
+'latest file
