@@ -50,7 +50,7 @@ Partial Class Form1
         BtnX2 = New Button()
         Btn1x = New Button()
         lblEquation = New Label()
-        BtnClearHistory = New Button()
+        Button1 = New Button()
         RtbDisplayHistory = New RichTextBox()
         Label5 = New Label()
         Label7 = New Label()
@@ -410,20 +410,20 @@ Partial Class Form1
         lblEquation.TabIndex = 28
         lblEquation.TextAlign = ContentAlignment.MiddleRight
         ' 
-        ' BtnClearHistory
+        ' Button1
         ' 
-        BtnClearHistory.FlatAppearance.BorderColor = Color.White
-        BtnClearHistory.FlatAppearance.BorderSize = 0
-        BtnClearHistory.FlatAppearance.MouseDownBackColor = Color.White
-        BtnClearHistory.FlatAppearance.MouseOverBackColor = Color.White
-        BtnClearHistory.FlatStyle = FlatStyle.Flat
-        BtnClearHistory.Font = New Font("Segoe UI Semilight", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        BtnClearHistory.Location = New Point(553, 392)
-        BtnClearHistory.Name = "BtnClearHistory"
-        BtnClearHistory.Size = New Size(36, 37)
-        BtnClearHistory.TabIndex = 29
-        BtnClearHistory.Text = "🗑"
-        BtnClearHistory.UseVisualStyleBackColor = True
+        Button1.FlatAppearance.BorderColor = Color.White
+        Button1.FlatAppearance.BorderSize = 0
+        Button1.FlatAppearance.MouseDownBackColor = Color.White
+        Button1.FlatAppearance.MouseOverBackColor = Color.White
+        Button1.FlatStyle = FlatStyle.Flat
+        Button1.Font = New Font("Segoe UI Semilight", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        Button1.Location = New Point(553, 392)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(36, 37)
+        Button1.TabIndex = 29
+        Button1.Text = "🗑"
+        Button1.UseVisualStyleBackColor = True
         ' 
         ' RtbDisplayHistory
         ' 
@@ -462,7 +462,7 @@ Partial Class Form1
         Controls.Add(Label7)
         Controls.Add(Label5)
         Controls.Add(RtbDisplayHistory)
-        Controls.Add(BtnClearHistory)
+        Controls.Add(Button1)
         Controls.Add(lblEquation)
         Controls.Add(BtnSqrt)
         Controls.Add(BtnX2)
@@ -525,7 +525,7 @@ Partial Class Form1
     Friend WithEvents BtnX2 As Button
     Friend WithEvents Btn1x As Button
     Friend WithEvents lblEquation As Label
-    Friend WithEvents BtnClearHistory As Button
+    Friend WithEvents Button1 As Button
     Friend WithEvents RtbDisplayHistory As RichTextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Label7 As Label

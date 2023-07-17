@@ -83,7 +83,6 @@
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.KeyPreview = True
-        BtnClearHistory.Visible = False
     End Sub
 
     Private Sub TxtDisplay_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtDisplay.KeyPress
@@ -175,13 +174,13 @@
 
         Select Case operation
             Case "+"
-                result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(originalRhs)
             Case "-"
-                result = If(hasPerformedCalculation, previous_result, assign_input) - Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) - Double.Parse(originalRhs)
             Case "×"
-                result = If(hasPerformedCalculation, previous_result, assign_input) * Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) * Double.Parse(originalRhs)
             Case "÷"
-                result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(originalRhs)
         End Select
 
         lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & operation & " " & originalRhs & " ="
