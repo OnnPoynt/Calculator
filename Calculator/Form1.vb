@@ -3,6 +3,9 @@
     Dim operation As String
     Dim found_expression As Boolean = False
     Dim firstnum, secondnum, q As String
+    Dim previous_result As Double = 0
+    Dim hasPerformedCalculation As Boolean = False
+    Dim originalRhs As String = ""
 
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         Select Case e.KeyCode
@@ -80,6 +83,7 @@
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.KeyPreview = True
+        BtnClearHistory.Visible = False
     End Sub
 
     Private Sub TxtDisplay_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtDisplay.KeyPress
@@ -88,15 +92,18 @@
         End If
     End Sub
 
-    Private Sub BtnCE_Click(sender As Object, e As EventArgs) Handles BtnCE.Click
+    Private Sub BtnC_Click(sender As Object, e As EventArgs) Handles BtnC.Click
         TxtDisplay.Text = "0"
         lblEquation.Text = ""
         operation = ""
         assign_input = 0
         found_expression = False
+        previous_result = 0
+        originalRhs = 0
+        hasPerformedCalculation = False
     End Sub
 
-    Private Sub BtnC_Click(sender As Object, e As EventArgs) Handles BtnC.Click
+    Private Sub BtnCE_Click(sender As Object, e As EventArgs) Handles BtnCE.Click
         TxtDisplay.Text = "0"
     End Sub
 
@@ -129,11 +136,14 @@
         End If
 
         operation = b.Text
-        assign_input = Double.Parse(TxtDisplay.Text)
+
+        If previous_result = 0 Then
+            assign_input = Double.Parse(TxtDisplay.Text)
+        End If
+
         lblEquation.Text = assign_input & "  " & operation
         found_expression = True
     End Sub
-
 
     Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
         Dim rhs As String = TxtDisplay.Text
@@ -141,6 +151,16 @@
 
         If operation = "÷" AndAlso rhs = "0" Then
             TxtDisplay.Text = "Cannot divide by 0"
+            BtnPlus.Enabled = False
+            BtnMinus.Enabled = False
+            BtnMultiply.Enabled = False
+            BtnDivide.Enabled = False
+            BtnPercent.Enabled = False
+            BtnPlusMinus.Enabled = False
+            BtnPoint.Enabled = False
+            BtnX2.Enabled = False
+            BtnSqrt.Enabled = False
+            Btn1x.Enabled = False
             Return
         End If
 
@@ -149,23 +169,33 @@
             Return
         End If
 
+        If Not hasPerformedCalculation Then
+            originalRhs = rhs
+        End If
+
         Select Case operation
             Case "+"
-                result = assign_input + Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(rhs)
             Case "-"
-                result = assign_input - Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) - Double.Parse(rhs)
             Case "×"
-                result = assign_input * Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) * Double.Parse(rhs)
             Case "÷"
-                result = assign_input / Double.Parse(rhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(rhs)
         End Select
 
-        lblEquation.Text = assign_input & " " & operation & " " & rhs & " ="
+        lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & operation & " " & originalRhs & " ="
         TxtDisplay.Text = result.ToString()
 
-        assign_input = result
+        assign_input = If(hasPerformedCalculation, previous_result, assign_input)
+        previous_result = result
+
+        hasPerformedCalculation = True
         found_expression = True
     End Sub
+
+
+
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
         If operation = "" Then
@@ -233,5 +263,3 @@
     End Sub
 
 End Class
-
-'latest file
