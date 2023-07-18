@@ -83,6 +83,8 @@
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.KeyPreview = True
+        AddHandler ListBoxHistory.SelectedIndexChanged, AddressOf ListBoxHistory_SelectedIndexChanged
+        panelHistory.Visible = False
     End Sub
 
     Private Sub TxtDisplay_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtDisplay.KeyPress
@@ -183,6 +185,16 @@
                 result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(originalRhs)
         End Select
 
+        If Not hasPerformedCalculation Then
+            Dim equation As String = lblEquation.Text & " " & rhs & " = " & result.ToString()
+            ListBoxHistory.Items.Add(equation)
+        Else
+            Dim equation As String = previous_result & " " & operation & " " & originalRhs & " = " & result.ToString()
+            ListBoxHistory.Items.Add(equation)
+
+        End If
+
+
         lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & operation & " " & originalRhs & " ="
         TxtDisplay.Text = result.ToString()
 
@@ -223,6 +235,7 @@
         End If
     End Sub
 
+
     Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
         Dim a As Double
         lblEquation.Text = "√ (" & (TxtDisplay.Text) & ")"
@@ -261,4 +274,34 @@
         End If
     End Sub
 
+    Private Sub BtnHistory_Click(sender As Object, e As EventArgs) Handles BtnHistory.Click
+        panelHistory.Visible = Not panelHistory.Visible
+
+        Dim existingItemsCount As Integer = ListBoxHistory.Items.Count
+        Dim newItemsCount As Integer = ListBoxHistory.Items.Count - existingItemsCount
+
+        For i As Integer = 0 To newItemsCount - 1
+            Dim item As String = ListBoxHistory.Items(existingItemsCount + i).ToString()
+            ListBoxHistory.Items.Add(item)
+        Next
+    End Sub
+
+    Private Sub ListBoxHistory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBoxHistory.SelectedIndexChanged
+        If ListBoxHistory.SelectedIndex >= 0 Then
+            Dim selectedItem As String = ListBoxHistory.SelectedItem.ToString()
+
+            Dim equationParts() As String = selectedItem.Split("=")
+            Dim equation As String = equationParts(0).Trim()
+            Dim result As String = equationParts(1).Trim()
+
+            lblEquation.Text = equation
+            TxtDisplay.Text = result
+
+            panelHistory.Visible = False
+        End If
+    End Sub
+
+    Private Sub BtnClearHistory_Click(sender As Object, e As EventArgs) Handles BtnClearHistory.Click
+        ListBoxHistory.Items.Clear()
+    End Sub
 End Class

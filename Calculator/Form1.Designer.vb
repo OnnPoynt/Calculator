@@ -50,10 +50,11 @@ Partial Class Form1
         BtnX2 = New Button()
         Btn1x = New Button()
         lblEquation = New Label()
-        Button1 = New Button()
-        RtbDisplayHistory = New RichTextBox()
+        BtnClearHistory = New Button()
         Label5 = New Label()
-        Label7 = New Label()
+        ListBoxHistory = New ListBox()
+        panelHistory = New Panel()
+        panelHistory.SuspendLayout()
         SuspendLayout()
         ' 
         ' BtnEquals
@@ -354,7 +355,7 @@ Partial Class Form1
         ' 
         ' BtnHistory
         ' 
-        BtnHistory.Location = New Point(311, 9)
+        BtnHistory.Location = New Point(311, 21)
         BtnHistory.Name = "BtnHistory"
         BtnHistory.Size = New Size(31, 28)
         BtnHistory.TabIndex = 24
@@ -410,59 +411,56 @@ Partial Class Form1
         lblEquation.TabIndex = 28
         lblEquation.TextAlign = ContentAlignment.MiddleRight
         ' 
-        ' Button1
+        ' BtnClearHistory
         ' 
-        Button1.FlatAppearance.BorderColor = Color.White
-        Button1.FlatAppearance.BorderSize = 0
-        Button1.FlatAppearance.MouseDownBackColor = Color.White
-        Button1.FlatAppearance.MouseOverBackColor = Color.White
-        Button1.FlatStyle = FlatStyle.Flat
-        Button1.Font = New Font("Segoe UI Semilight", 12F, FontStyle.Regular, GraphicsUnit.Point)
-        Button1.Location = New Point(553, 392)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(36, 37)
-        Button1.TabIndex = 29
-        Button1.Text = "🗑"
-        Button1.UseVisualStyleBackColor = True
-        ' 
-        ' RtbDisplayHistory
-        ' 
-        RtbDisplayHistory.BorderStyle = BorderStyle.None
-        RtbDisplayHistory.Location = New Point(385, 78)
-        RtbDisplayHistory.Name = "RtbDisplayHistory"
-        RtbDisplayHistory.Size = New Size(204, 321)
-        RtbDisplayHistory.TabIndex = 30
-        RtbDisplayHistory.Text = ""
+        BtnClearHistory.FlatAppearance.BorderColor = Color.White
+        BtnClearHistory.FlatAppearance.BorderSize = 0
+        BtnClearHistory.FlatAppearance.MouseDownBackColor = Color.White
+        BtnClearHistory.FlatAppearance.MouseOverBackColor = Color.White
+        BtnClearHistory.FlatStyle = FlatStyle.Flat
+        BtnClearHistory.Font = New Font("Segoe UI Semilight", 12F, FontStyle.Regular, GraphicsUnit.Point)
+        BtnClearHistory.Location = New Point(288, 6)
+        BtnClearHistory.Name = "BtnClearHistory"
+        BtnClearHistory.Size = New Size(36, 37)
+        BtnClearHistory.TabIndex = 29
+        BtnClearHistory.Text = "🗑"
+        BtnClearHistory.UseVisualStyleBackColor = True
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point)
-        Label5.Location = New Point(385, 33)
+        Label5.Location = New Point(0, 0)
         Label5.Name = "Label5"
         Label5.Size = New Size(64, 21)
         Label5.TabIndex = 33
         Label5.Text = "History"
         ' 
-        ' Label7
+        ' ListBoxHistory
         ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point)
-        Label7.Location = New Point(385, 54)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(172, 21)
-        Label7.TabIndex = 35
-        Label7.Text = "There is no history yet"
+        ListBoxHistory.FormattingEnabled = True
+        ListBoxHistory.ItemHeight = 15
+        ListBoxHistory.Location = New Point(0, 42)
+        ListBoxHistory.Name = "ListBoxHistory"
+        ListBoxHistory.Size = New Size(324, 244)
+        ListBoxHistory.TabIndex = 36
+        ' 
+        ' panelHistory
+        ' 
+        panelHistory.Controls.Add(ListBoxHistory)
+        panelHistory.Controls.Add(BtnClearHistory)
+        panelHistory.Controls.Add(Label5)
+        panelHistory.Location = New Point(12, 143)
+        panelHistory.Name = "panelHistory"
+        panelHistory.Size = New Size(330, 286)
+        panelHistory.TabIndex = 37
         ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(594, 436)
-        Controls.Add(Label7)
-        Controls.Add(Label5)
-        Controls.Add(RtbDisplayHistory)
-        Controls.Add(Button1)
+        ClientSize = New Size(353, 440)
+        Controls.Add(panelHistory)
         Controls.Add(lblEquation)
         Controls.Add(BtnSqrt)
         Controls.Add(BtnX2)
@@ -493,6 +491,8 @@ Partial Class Form1
         Controls.Add(BtnEquals)
         Name = "Form1"
         Text = "Form1"
+        panelHistory.ResumeLayout(False)
+        panelHistory.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -525,8 +525,8 @@ Partial Class Form1
     Friend WithEvents BtnX2 As Button
     Friend WithEvents Btn1x As Button
     Friend WithEvents lblEquation As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents RtbDisplayHistory As RichTextBox
+    Friend WithEvents BtnClearHistory As Button
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label7 As Label
+    Friend WithEvents ListBoxHistory As ListBox
+    Friend WithEvents panelHistory As Panel
 End Class
