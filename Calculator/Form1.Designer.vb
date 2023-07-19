@@ -355,11 +355,11 @@ Partial Class Form1
         ' 
         ' BtnHistory
         ' 
-        BtnHistory.Location = New Point(311, 21)
+        BtnHistory.Location = New Point(280, 21)
         BtnHistory.Name = "BtnHistory"
-        BtnHistory.Size = New Size(31, 28)
+        BtnHistory.Size = New Size(62, 28)
         BtnHistory.TabIndex = 24
-        BtnHistory.Text = "@"
+        BtnHistory.Text = "History"
         BtnHistory.UseVisualStyleBackColor = True
         ' 
         ' BtnSqrt

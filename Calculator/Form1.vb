@@ -142,6 +142,10 @@
             assign_input = Double.Parse(TxtDisplay.Text)
         End If
 
+        If hasPerformedCalculation Then
+            lblEquation.Text = previous_result & " " & operation
+        End If
+
         lblEquation.Text = assign_input & "  " & operation
         found_expression = True
     End Sub
