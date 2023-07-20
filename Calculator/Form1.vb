@@ -78,6 +78,8 @@
                 BtnC.PerformClick()
             Case Keys.Escape
                 BtnCE.PerformClick()
+            Case Keys.I
+                BtnHistory.PerformClick()
         End Select
     End Sub
 
@@ -102,6 +104,7 @@
         previous_result = 0
         originalRhs = 0
         hasPerformedCalculation = False
+        secondnum = 0
     End Sub
 
     Private Sub BtnCE_Click(sender As Object, e As EventArgs) Handles BtnCE.Click
@@ -111,6 +114,14 @@
     Private Sub Numbers_Click(sender As Object, e As EventArgs) Handles Btn9.Click, Btn8.Click, Btn7.Click, Btn6.Click, Btn5.Click, Btn4.Click, Btn3.Click, Btn2.Click, Btn1.Click, Btn0.Click, BtnPoint.Click
         Dim b As Button = sender
         Dim keyValue As String = b.Text
+
+        If operation <> "" Then
+            secondnum = secondnum & keyValue
+        Else
+            If TxtDisplay.Text.Length >= 16 Then
+                Return
+            End If
+        End If
 
         If TxtDisplay.Text.Length >= 16 Then
             Return
@@ -142,19 +153,14 @@
             assign_input = Double.Parse(TxtDisplay.Text)
         End If
 
-        If hasPerformedCalculation Then
-            lblEquation.Text = previous_result & " " & operation
-        End If
-
-        lblEquation.Text = assign_input & "  " & operation
+        lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & "  " & operation & " " & secondnum
         found_expression = True
     End Sub
 
     Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
-        Dim rhs As String = TxtDisplay.Text
         Dim result As Double = 0
 
-        If operation = "÷" AndAlso rhs = "0" Then
+        If operation = "÷" AndAlso secondnum = "0" Then
             TxtDisplay.Text = "Cannot divide by 0"
             BtnPlus.Enabled = False
             BtnMinus.Enabled = False
@@ -169,37 +175,28 @@
             Return
         End If
 
-        If operation = "" Then
-            lblEquation.Text = rhs & " ="
-            Return
-        End If
-
-        If Not hasPerformedCalculation Then
-            originalRhs = rhs
-        End If
-
         Select Case operation
             Case "+"
-                result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(originalRhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(secondnum)
             Case "-"
-                result = If(hasPerformedCalculation, previous_result, assign_input) - Double.Parse(originalRhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) - Double.Parse(secondnum)
             Case "×"
-                result = If(hasPerformedCalculation, previous_result, assign_input) * Double.Parse(originalRhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) * Double.Parse(secondnum)
             Case "÷"
-                result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(originalRhs)
+                result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(secondnum)
         End Select
 
         If Not hasPerformedCalculation Then
-            Dim equation As String = lblEquation.Text & " " & rhs & " = " & result.ToString()
+            Dim equation As String = lblEquation.Text & " " & secondnum & " = " & result.ToString()
             ListBoxHistory.Items.Add(equation)
         Else
-            Dim equation As String = previous_result & " " & operation & " " & originalRhs & " = " & result.ToString()
+            Dim equation As String = previous_result & " " & operation & " " & secondnum & " = " & result.ToString()
             ListBoxHistory.Items.Add(equation)
 
         End If
 
 
-        lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & operation & " " & originalRhs & " ="
+        lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & operation & " " & secondnum & " ="
         TxtDisplay.Text = result.ToString()
 
         assign_input = If(hasPerformedCalculation, previous_result, assign_input)
@@ -207,10 +204,8 @@
 
         hasPerformedCalculation = True
         found_expression = True
+        secondnum = ""
     End Sub
-
-
-
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
         If operation = "" Then
