@@ -211,6 +211,11 @@
             originalRhs = rhs
         End If
 
+        If secondnum = "" Then
+            secondnum = assign_input
+        End If
+
+
         Select Case operation
             Case "+"
                 result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(secondnum)
