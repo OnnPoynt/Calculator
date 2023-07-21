@@ -143,19 +143,47 @@
     Private Sub operation_Click(sender As Object, e As EventArgs) Handles BtnDivide.Click, BtnMultiply.Click, BtnMinus.Click, BtnPlus.Click
         Dim b As Button = sender
 
-        If operation <> "" Then
-            lblEquation.Text = lblEquation.Text.Remove(lblEquation.Text.Length - 2)
-        End If
+        If operation <> "" AndAlso secondnum <> "" Then
+            Dim result As Double = PerformOperation(Double.Parse(assign_input), operation, Double.Parse(secondnum))
 
+            If Not hasPerformedCalculation Then
+                Dim equation As String = lblEquation.Text & " " & secondnum & " = " & result.ToString()
+                ListBoxHistory.Items.Add(equation)
+            Else
+                Dim equation As String = previous_result & " " & operation & " " & secondnum & " = " & result.ToString()
+                ListBoxHistory.Items.Add(equation)
+            End If
+
+            lblEquation.Text = result & " " & b.Text & " "
+            TxtDisplay.Text = result.ToString()
+            assign_input = result
+        Else
+            If previous_result = 0 Then
+                assign_input = Double.Parse(TxtDisplay.Text)
+            End If
+
+            lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & b.Text & " "
+        End If
+        secondnum = ""
         operation = b.Text
-
-        If previous_result = 0 Then
-            assign_input = Double.Parse(TxtDisplay.Text)
-        End If
-
-        lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & "  " & operation & " " & secondnum
         found_expression = True
     End Sub
+
+    Private Function PerformOperation(lhs As Double, operatorSymbol As String, rhs As Double) As Double
+        Select Case operatorSymbol
+            Case "+"
+                Return lhs + rhs
+            Case "-"
+                Return lhs - rhs
+            Case "×"
+                Return lhs * rhs
+            Case "÷"
+                Return lhs / rhs
+            Case Else
+                Return 0
+        End Select
+    End Function
+
 
     Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
         Dim result As Double = 0
