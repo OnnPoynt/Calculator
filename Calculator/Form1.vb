@@ -123,9 +123,7 @@
             End If
         End If
 
-        If TxtDisplay.Text.Length >= 16 Then
-            Return
-        End If
+        'secondnum = b.Text
 
         If ((TxtDisplay.Text = "0") Or (found_expression)) Then
             TxtDisplay.Clear()
@@ -169,6 +167,7 @@
         found_expression = True
     End Sub
 
+
     Private Function PerformOperation(lhs As Double, operatorSymbol As String, rhs As Double) As Double
         Select Case operatorSymbol
             Case "+"
@@ -184,11 +183,11 @@
         End Select
     End Function
 
-
     Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
+        Dim rhs As String = TxtDisplay.Text
         Dim result As Double = 0
 
-        If operation = "÷" AndAlso secondnum = "0" Then
+        If operation = "÷" AndAlso rhs = "0" Then
             TxtDisplay.Text = "Cannot divide by 0"
             BtnPlus.Enabled = False
             BtnMinus.Enabled = False
@@ -201,6 +200,15 @@
             BtnSqrt.Enabled = False
             Btn1x.Enabled = False
             Return
+        End If
+
+        If operation = "" Then
+            lblEquation.Text = rhs & " ="
+            Return
+        End If
+
+        If Not hasPerformedCalculation Then
+            originalRhs = rhs
         End If
 
         Select Case operation
@@ -232,8 +240,8 @@
 
         hasPerformedCalculation = True
         found_expression = True
-        secondnum = ""
     End Sub
+
 
     Private Sub BtnPercent_Click(sender As Object, e As EventArgs) Handles BtnPercent.Click
         If operation = "" Then

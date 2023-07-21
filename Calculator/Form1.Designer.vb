@@ -450,7 +450,7 @@ Partial Class Form1
         panelHistory.Controls.Add(ListBoxHistory)
         panelHistory.Controls.Add(BtnClearHistory)
         panelHistory.Controls.Add(Label5)
-        panelHistory.Location = New Point(348, 142)
+        panelHistory.Location = New Point(12, 143)
         panelHistory.Name = "panelHistory"
         panelHistory.Size = New Size(330, 286)
         panelHistory.TabIndex = 37
@@ -459,7 +459,7 @@ Partial Class Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(682, 440)
+        ClientSize = New Size(353, 440)
         Controls.Add(panelHistory)
         Controls.Add(lblEquation)
         Controls.Add(BtnSqrt)
