@@ -1,9 +1,9 @@
 ﻿Public Class Form1
-    Dim assign_input As Double = 0
+    Dim assign_input As Decimal = 0
     Dim operation As String
     Dim found_expression As Boolean = False
     Dim firstnum, secondnum, q As String
-    Dim previous_result As Double = 0
+    Dim previous_result As Decimal = 0
     Dim hasPerformedCalculation As Boolean = False
     Dim originalRhs As String = ""
 
@@ -136,13 +136,50 @@
         Else
             TxtDisplay.Text = TxtDisplay.Text + keyValue
         End If
+        FormatNumberIfExceedsMaxLength()
+
     End Sub
+
+    Private Sub FormatNumberIfExceedsMaxLength()
+        Dim number As Decimal
+
+        If Decimal.TryParse(TxtDisplay.Text, number) Then
+            Dim formattedNumber As String = FormatLargeNumber(number)
+            TxtDisplay.Text = formattedNumber
+        End If
+    End Sub
+
+    Private Function FormatLargeNumber(number As Decimal) As String
+        Dim formattedNumber As String = number.ToString("G16")
+
+        ' If the formatted number has "E+" notation (exponential notation)
+        If formattedNumber.Contains("E+") Then
+            Dim parts() As String = formattedNumber.Split("E+")
+            Dim coefficient As Decimal = Decimal.Parse(parts(0))
+            Dim exponent As Integer = Integer.Parse(parts(1))
+
+            ' We want to show 16 digits for the coefficient (including the decimal point)
+            Dim coefficientString As String = coefficient.ToString((coefficient))
+
+            ' If the coefficient exceeds 16 characters, we format it in scientific notation
+            If coefficientString.Length > 16 Then
+                coefficientString = coefficient.ToString("E15")
+                Return coefficientString
+            End If
+
+            formattedNumber = coefficientString & "e+" & exponent.ToString()
+        End If
+
+        Return formattedNumber
+    End Function
+
+
 
     Private Sub operation_Click(sender As Object, e As EventArgs) Handles BtnDivide.Click, BtnMultiply.Click, BtnMinus.Click, BtnPlus.Click
         Dim b As Button = sender
 
         If operation <> "" AndAlso secondnum <> "" Then
-            Dim result As Double = PerformOperation(Double.Parse(assign_input), operation, Double.Parse(secondnum))
+            Dim result As Decimal = PerformOperation(Decimal.Parse(assign_input), operation, Decimal.Parse(secondnum))
 
             If Not hasPerformedCalculation Then
                 Dim equation As String = lblEquation.Text & " " & secondnum & " = " & result.ToString()
@@ -157,7 +194,7 @@
             assign_input = result
         Else
             If previous_result = 0 Then
-                assign_input = Double.Parse(TxtDisplay.Text)
+                assign_input = Decimal.Parse(TxtDisplay.Text)
             End If
 
             lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & b.Text & " "
@@ -165,10 +202,12 @@
         secondnum = ""
         operation = b.Text
         found_expression = True
+        ' Call the function to format the number if it exceeds the maximum length
+        FormatNumberIfExceedsMaxLength()
     End Sub
 
 
-    Private Function PerformOperation(lhs As Double, operatorSymbol As String, rhs As Double) As Double
+    Private Function PerformOperation(lhs As Decimal, operatorSymbol As String, rhs As Decimal) As Decimal
         Select Case operatorSymbol
             Case "+"
                 Return lhs + rhs
@@ -185,7 +224,7 @@
 
     Private Sub BtnEquals_Click(sender As Object, e As EventArgs) Handles BtnEquals.Click
         Dim rhs As String = TxtDisplay.Text
-        Dim result As Double = 0
+        Dim result As Decimal = 0
 
         If operation = "÷" AndAlso rhs = "0" Then
             TxtDisplay.Text = "Cannot divide by 0"
@@ -217,13 +256,13 @@
 
         Select Case operation
             Case "+"
-                result = If(hasPerformedCalculation, previous_result, assign_input) + Double.Parse(secondnum)
+                result = If(hasPerformedCalculation, previous_result, assign_input) + Decimal.Parse(secondnum)
             Case "-"
-                result = If(hasPerformedCalculation, previous_result, assign_input) - Double.Parse(secondnum)
+                result = If(hasPerformedCalculation, previous_result, assign_input) - Decimal.Parse(secondnum)
             Case "×"
-                result = If(hasPerformedCalculation, previous_result, assign_input) * Double.Parse(secondnum)
+                result = If(hasPerformedCalculation, previous_result, assign_input) * Decimal.Parse(secondnum)
             Case "÷"
-                result = If(hasPerformedCalculation, previous_result, assign_input) / Double.Parse(secondnum)
+                result = If(hasPerformedCalculation, previous_result, assign_input) / Decimal.Parse(secondnum)
         End Select
 
         If Not hasPerformedCalculation Then
@@ -244,6 +283,8 @@
 
         hasPerformedCalculation = True
         found_expression = True
+        ' Call the function to format the number if it exceeds the maximum length
+        FormatNumberIfExceedsMaxLength()
     End Sub
 
 
@@ -251,8 +292,8 @@
         If operation = "" Then
             TxtDisplay.Text = "0"
         Else
-            Dim currentNumber As Double = Double.Parse(TxtDisplay.Text)
-            Dim result As Double
+            Dim currentNumber As Decimal = Decimal.Parse(TxtDisplay.Text)
+            Dim result As Decimal
 
             Select Case operation
                 Case "+"
@@ -274,27 +315,41 @@
         End If
     End Sub
 
+    Private Function CalculateSquareRoot(ByVal number As Decimal) As Decimal
+        Return Math.Sqrt(number)
+    End Function
 
+    Private Function CalculateSquare(ByVal number As Decimal) As Decimal
+        Return number * number
+    End Function
+
+    Private Function CalculateInverse(ByVal number As Decimal) As Decimal
+        Return 1 / number
+    End Function
     Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
-        Dim a As Double
-        lblEquation.Text = "√ (" & (TxtDisplay.Text) & ")"
-        a = Math.Sqrt(TxtDisplay.Text)
+        Dim a As Decimal = CalculateSquareRoot(Decimal.Parse(TxtDisplay.Text))
+        lblEquation.Text = "√(" & TxtDisplay.Text & ")"
         TxtDisplay.Text = System.Convert.ToString(a)
+        AddToHistory(lblEquation.Text & " = " & TxtDisplay.Text)
     End Sub
 
     Private Sub BtnX2_Click(sender As Object, e As EventArgs) Handles BtnX2.Click
-        Dim a As Double
-        a = Convert.ToDouble(TxtDisplay.Text) * Convert.ToDouble(TxtDisplay.Text)
-        lblEquation.Text = "(" & TxtDisplay.Text & ")^2"
+        Dim a As Decimal = CalculateSquare(Decimal.Parse(TxtDisplay.Text))
+        lblEquation.Text = "(" & TxtDisplay.Text & ")²"
         TxtDisplay.Text = System.Convert.ToString(a)
+        AddToHistory(lblEquation.Text & " = " & TxtDisplay.Text)
     End Sub
 
     Private Sub Btn1x_Click(sender As Object, e As EventArgs) Handles Btn1x.Click
-        Dim a As Double
-        a = Convert.ToDouble(1.0 / Convert.ToDouble(TxtDisplay.Text))
+        Dim a As Decimal = CalculateInverse(Decimal.Parse(TxtDisplay.Text))
         lblEquation.Text = "1 / (" & TxtDisplay.Text & ")"
         TxtDisplay.Text = System.Convert.ToString(a)
+        AddToHistory(lblEquation.Text & " = " & TxtDisplay.Text)
     End Sub
+    Private Sub AddToHistory(ByVal equation As String)
+        ListBoxHistory.Items.Add(equation)
+    End Sub
+
 
     Private Sub BtnBack_Click(sender As Object, e As EventArgs) Handles BtnBack.Click
         If TxtDisplay.Text.Length > 0 Then
@@ -333,12 +388,30 @@
             Dim equation As String = equationParts(0).Trim()
             Dim result As String = equationParts(1).Trim()
 
+            ' Extract the numbers from the equation
+            Dim equationNumbers() As String = equation.Split(" ")
+            Dim firstNum As Decimal = Decimal.Parse(equationNumbers(0))
+            Dim operation As String = equationNumbers(1)
+
+            ' Handle unary operations (no second number)
+            Dim secondNum As Decimal = 0
+            If equationNumbers.Length = 3 Then
+                secondNum = Decimal.Parse(equationNumbers(2))
+            End If
+
+            ' Set the variables for further calculations
+            assign_input = firstNum
+            hasPerformedCalculation = True
+            previous_result = Decimal.Parse(result)
+
+            ' Update the label and textbox with the selected equation and result
             lblEquation.Text = equation
             TxtDisplay.Text = result
 
             panelHistory.Visible = False
         End If
     End Sub
+
 
     Private Sub BtnClearHistory_Click(sender As Object, e As EventArgs) Handles BtnClearHistory.Click
         ListBoxHistory.Items.Clear()
