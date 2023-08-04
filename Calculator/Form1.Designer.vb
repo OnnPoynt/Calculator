@@ -490,7 +490,7 @@ Partial Class Form1
         Controls.Add(Label1)
         Controls.Add(BtnEquals)
         Name = "Form1"
-        Text = "Form1"
+        Text = "Calculator"
         panelHistory.ResumeLayout(False)
         panelHistory.PerformLayout()
         ResumeLayout(False)

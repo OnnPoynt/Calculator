@@ -87,6 +87,7 @@
         Me.KeyPreview = True
         AddHandler ListBoxHistory.SelectedIndexChanged, AddressOf ListBoxHistory_SelectedIndexChanged
         panelHistory.Visible = False
+        TxtDisplay.ReadOnly = True
     End Sub
 
     Private Sub TxtDisplay_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtDisplay.KeyPress
@@ -152,16 +153,13 @@
     Private Function FormatLargeNumber(number As Decimal) As String
         Dim formattedNumber As String = number.ToString("G16")
 
-        ' If the formatted number has "E+" notation (exponential notation)
         If formattedNumber.Contains("E+") Then
             Dim parts() As String = formattedNumber.Split("E+")
             Dim coefficient As Decimal = Decimal.Parse(parts(0))
             Dim exponent As Integer = Integer.Parse(parts(1))
 
-            ' We want to show 16 digits for the coefficient (including the decimal point)
             Dim coefficientString As String = coefficient.ToString((coefficient))
 
-            ' If the coefficient exceeds 16 characters, we format it in scientific notation
             If coefficientString.Length > 16 Then
                 coefficientString = coefficient.ToString("E15")
                 Return coefficientString
@@ -202,7 +200,6 @@
         secondnum = ""
         operation = b.Text
         found_expression = True
-        ' Call the function to format the number if it exceeds the maximum length
         FormatNumberIfExceedsMaxLength()
     End Sub
 
@@ -283,7 +280,6 @@
 
         hasPerformedCalculation = True
         found_expression = True
-        ' Call the function to format the number if it exceeds the maximum length
         FormatNumberIfExceedsMaxLength()
     End Sub
 
@@ -306,7 +302,11 @@
                     result = assign_input / (currentNumber / 100)
             End Select
 
-            lblEquation.Text = assign_input & " " & operation & " " & currentNumber.ToString() & " % ="
+            Dim equation As String = assign_input & " " & operation & " " & currentNumber.ToString() & " %"
+            Dim equationWithResult As String = equation & " = " & result.ToString()
+            ListBoxHistory.Items.Add(equationWithResult)
+
+            lblEquation.Text = ""
             TxtDisplay.Text = result.ToString()
 
             assign_input = result
@@ -326,29 +326,6 @@
     Private Function CalculateInverse(ByVal number As Decimal) As Decimal
         Return 1 / number
     End Function
-    Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
-        Dim a As Decimal = CalculateSquareRoot(Decimal.Parse(TxtDisplay.Text))
-        lblEquation.Text = "√(" & TxtDisplay.Text & ")"
-        TxtDisplay.Text = System.Convert.ToString(a)
-        AddToHistory(lblEquation.Text & " = " & TxtDisplay.Text)
-    End Sub
-
-    Private Sub BtnX2_Click(sender As Object, e As EventArgs) Handles BtnX2.Click
-        Dim a As Decimal = CalculateSquare(Decimal.Parse(TxtDisplay.Text))
-        lblEquation.Text = "(" & TxtDisplay.Text & ")²"
-        TxtDisplay.Text = System.Convert.ToString(a)
-        AddToHistory(lblEquation.Text & " = " & TxtDisplay.Text)
-    End Sub
-
-    Private Sub Btn1x_Click(sender As Object, e As EventArgs) Handles Btn1x.Click
-        Dim a As Decimal = CalculateInverse(Decimal.Parse(TxtDisplay.Text))
-        lblEquation.Text = "1 / (" & TxtDisplay.Text & ")"
-        TxtDisplay.Text = System.Convert.ToString(a)
-        AddToHistory(lblEquation.Text & " = " & TxtDisplay.Text)
-    End Sub
-    Private Sub AddToHistory(ByVal equation As String)
-        ListBoxHistory.Items.Add(equation)
-    End Sub
 
 
     Private Sub BtnBack_Click(sender As Object, e As EventArgs) Handles BtnBack.Click
@@ -380,6 +357,38 @@
         Next
     End Sub
 
+    Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
+        Dim a As Decimal = CalculateSquareRoot(Decimal.Parse(TxtDisplay.Text))
+        Dim equation As String = "√(" & TxtDisplay.Text & ")"
+        TxtDisplay.Text = System.Convert.ToString(a)
+        AddToHistory(equation, a)
+    End Sub
+
+    Private Sub BtnX2_Click(sender As Object, e As EventArgs) Handles BtnX2.Click
+        Dim a As Decimal = CalculateSquare(Decimal.Parse(TxtDisplay.Text))
+        Dim equation As String = "(" & TxtDisplay.Text & ")²"
+        TxtDisplay.Text = System.Convert.ToString(a)
+        AddToHistory(equation, a)
+    End Sub
+
+    Private Sub Btn1x_Click(sender As Object, e As EventArgs) Handles Btn1x.Click
+        Dim inputNumber As Decimal
+
+        If Decimal.TryParse(TxtDisplay.Text, inputNumber) AndAlso inputNumber <> 0 Then
+            Dim result As Decimal = CalculateInverse(inputNumber)
+            Dim equation As String = "1 / (" & TxtDisplay.Text & ")"
+            TxtDisplay.Text = result.ToString()
+            AddToHistory(equation, result)
+        Else
+            TxtDisplay.Text = "Cannot divide by 0"
+        End If
+    End Sub
+
+    Private Sub AddToHistory(ByVal equation As String, ByVal result As Decimal)
+        Dim equationWithResult As String = equation & " = " & result.ToString()
+        ListBoxHistory.Items.Add(equationWithResult)
+    End Sub
+
     Private Sub ListBoxHistory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBoxHistory.SelectedIndexChanged
         If ListBoxHistory.SelectedIndex >= 0 Then
             Dim selectedItem As String = ListBoxHistory.SelectedItem.ToString()
@@ -388,29 +397,38 @@
             Dim equation As String = equationParts(0).Trim()
             Dim result As String = equationParts(1).Trim()
 
-            ' Extract the numbers from the equation
-            Dim equationNumbers() As String = equation.Split(" ")
-            Dim firstNum As Decimal = Decimal.Parse(equationNumbers(0))
-            Dim operation As String = equationNumbers(1)
+            hasPerformedCalculation = True
 
-            ' Handle unary operations (no second number)
-            Dim secondNum As Decimal = 0
-            If equationNumbers.Length = 3 Then
-                secondNum = Decimal.Parse(equationNumbers(2))
+            If equation.Contains("√") Then
+                Dim equationNumbers() As String = equation.Split("("c, ")"c)
+                Dim firstNum As Decimal = Decimal.Parse(equationNumbers(1))
+                assign_input = firstNum
+                previous_result = Decimal.Parse(result)
+            ElseIf equation.Contains("²") Then
+                Dim equationNumbers() As String = equation.Split("("c, ")"c)
+                Dim firstNum As Decimal = Decimal.Parse(equationNumbers(1))
+                Dim originalValue As Decimal = Decimal.Parse(TxtDisplay.Text)
+                assign_input = originalValue
+                previous_result = originalValue
+            ElseIf equation.Contains("1 /") Then
+                Dim equationNumbers() As String = equation.Split("("c, ")"c)
+                Dim firstNum As Decimal = Decimal.Parse(equationNumbers(1))
+                assign_input = firstNum
+                previous_result = Decimal.Parse(result)
+            Else
+                Dim equationNumbers() As String = equation.Split(" ")
+                Dim firstNum As Decimal = Decimal.Parse(equationNumbers(0))
+                assign_input = firstNum
+                previous_result = Decimal.Parse(result)
             End If
 
-            ' Set the variables for further calculations
-            assign_input = firstNum
-            hasPerformedCalculation = True
-            previous_result = Decimal.Parse(result)
-
-            ' Update the label and textbox with the selected equation and result
             lblEquation.Text = equation
             TxtDisplay.Text = result
 
             panelHistory.Visible = False
         End If
     End Sub
+
 
 
     Private Sub BtnClearHistory_Click(sender As Object, e As EventArgs) Handles BtnClearHistory.Click
