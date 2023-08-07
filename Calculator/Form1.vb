@@ -112,6 +112,8 @@
         TxtDisplay.Text = "0"
     End Sub
 
+    Dim numclick As Boolean = False
+
     Private Sub Numbers_Click(sender As Object, e As EventArgs) Handles Btn9.Click, Btn8.Click, Btn7.Click, Btn6.Click, Btn5.Click, Btn4.Click, Btn3.Click, Btn2.Click, Btn1.Click, Btn0.Click, BtnPoint.Click
         Dim b As Button = sender
         Dim keyValue As String = b.Text
@@ -139,6 +141,7 @@
         End If
         FormatNumberIfExceedsMaxLength()
 
+        numclick = True
     End Sub
 
     Private Sub FormatNumberIfExceedsMaxLength()
@@ -201,6 +204,7 @@
         operation = b.Text
         found_expression = True
         FormatNumberIfExceedsMaxLength()
+        numclick = False
     End Sub
 
 
@@ -247,6 +251,12 @@
             originalRhs = rhs
         End If
 
+        If hasPerformedCalculation And numclick Then
+            secondnum = originalRhs
+            assign_input = Decimal.Parse(TxtDisplay.Text)
+            previous_result = TxtDisplay.Text
+        End If
+
         If secondnum = "" Then
             secondnum = assign_input
         End If
@@ -270,7 +280,6 @@
             ListBoxHistory.Items.Add(equation)
 
         End If
-
 
         lblEquation.Text = If(hasPerformedCalculation, previous_result, assign_input) & " " & operation & " " & secondnum & " ="
         TxtDisplay.Text = result.ToString()
@@ -303,17 +312,16 @@
             End Select
 
             Dim equation As String = assign_input & " " & operation & " " & currentNumber.ToString() & " %"
-            Dim equationWithResult As String = equation & " = " & result.ToString()
-            ListBoxHistory.Items.Add(equationWithResult)
-
-            lblEquation.Text = ""
+            lblEquation.Text = equation
             TxtDisplay.Text = result.ToString()
 
             assign_input = result
             operation = ""
             found_expression = True
+            AddToHistory(equation, result)
         End If
     End Sub
+
 
     Private Function CalculateSquareRoot(ByVal number As Decimal) As Decimal
         Return Math.Sqrt(number)
@@ -360,16 +368,20 @@
     Private Sub BtnSqrt_Click(sender As Object, e As EventArgs) Handles BtnSqrt.Click
         Dim a As Decimal = CalculateSquareRoot(Decimal.Parse(TxtDisplay.Text))
         Dim equation As String = "√(" & TxtDisplay.Text & ")"
-        TxtDisplay.Text = System.Convert.ToString(a)
+        lblEquation.Text = equation
+        TxtDisplay.Text = a.ToString()
         AddToHistory(equation, a)
     End Sub
+
 
     Private Sub BtnX2_Click(sender As Object, e As EventArgs) Handles BtnX2.Click
         Dim a As Decimal = CalculateSquare(Decimal.Parse(TxtDisplay.Text))
         Dim equation As String = "(" & TxtDisplay.Text & ")²"
-        TxtDisplay.Text = System.Convert.ToString(a)
+        lblEquation.Text = equation
+        TxtDisplay.Text = a.ToString()
         AddToHistory(equation, a)
     End Sub
+
 
     Private Sub Btn1x_Click(sender As Object, e As EventArgs) Handles Btn1x.Click
         Dim inputNumber As Decimal
@@ -428,7 +440,6 @@
             panelHistory.Visible = False
         End If
     End Sub
-
 
 
     Private Sub BtnClearHistory_Click(sender As Object, e As EventArgs) Handles BtnClearHistory.Click
